@@ -125,6 +125,10 @@ class OaiPmhRepository_Metadata_OaiQdc implements OaiPmhRepository_Metadata_Form
             // Append the browse URI to all results
             if ($propertyName == 'dc:identifier') {
                 $oai_qdc->appendNewElement('dc:identifier', record_url($item, 'show', true));
+                if ($youtube = metadata($item, array('Item Type Metadata', 'Identifier.YouTube'))) {
+              		$thumb_url = 'https://img.youtube.com/vi/' . $youtube . '/hqdefault.jpg';
+              		$oai_qdc->appendNewElement('dc:identifier', $thumb_url);
+              	}
 
                 // Also append an identifier for each file
                 if(get_option('oaipmh_repository_expose_files')) {
